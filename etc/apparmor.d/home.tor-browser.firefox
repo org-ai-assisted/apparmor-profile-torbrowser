@@ -9,6 +9,7 @@ include <tunables/global>
 
 /**/*-browser/Browser/firefox flags=(attach_disconnected) {
   include <abstractions/X>
+  include <abstractions/wayland>
   include <abstractions/audio>
   include <abstractions/base>
   include <abstractions/fonts>
@@ -82,11 +83,7 @@ include <tunables/global>
   /run/resolvconf/resolv.conf r,
   /run/split-browser-disp/from-firefox w,
   /run/split-browser-disp/into-firefox rw,
-  # Native Wayland (MOZ_ENABLE_WAYLAND): connect to the compositor display socket and create
-  # firefox's own wayland-proxy socket beside it. Inlined (not abstractions/wayland) to stay
-  # portable across apparmor versions. The profile was previously X11-only (abstractions/X).
-  owner /run/user/*/wayland-[0-9]* rw,
-  owner /run/user/*/wayland-proxy-* rw,
+  owner /run/user/*/wayland-proxy-[0-9]* rw,
 
   /sys/bus/ r,
   /sys/bus/pci/devices/ r,
